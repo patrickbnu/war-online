@@ -1,0 +1,141 @@
+<html>
+<head>
+	<title></title>
+
+	<script src="./js/raphael-min.js"></script>
+	<script src="./js/world.js"></script>
+</head>
+
+
+<style type="text/css">
+	
+body {
+    background: #333;
+    color: #fff;
+    font: 300 100.1% "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+}
+#holder {
+    height: 480px;
+    left: 50%;
+    margin: -240px 0 0 -320px;
+    position: absolute;
+    top: 50%;
+    width: 640px;
+}
+#copy {
+    bottom: 0;
+    font: 300 .7em "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+    position: absolute;
+    right: 1em;
+    text-align: right;
+}
+#copy a {
+    color: #fff;
+}
+
+
+</style>
+<body>
+
+<script type="text/javascript">
+	var r;
+
+	function resize(){
+		r.setSize(2000,800);
+		r.setViewBox(10, 60, 1000, 400, true);
+	}
+	
+
+
+                //var paper = Raphael("tabuleiro", 1000, 500);
+                
+                //paper.rect(0, 0, 1000, 500, 0).attr({
+                //  stroke: "none",
+                /// fill: "0-#9bb7cb-#adc8da"
+                //});
+                //this.paper = paper;
+
+
+                /*  this.paper.setSize(w,h);
+
+                var original_width = 1000;
+                var original_height = 500;
+                var zoom_width = w/original_width;
+                var zoom_height = h/original_height;
+                if(zoom_width<=zoom_height)
+                   zoom = zoom_width;
+                else
+                   zoom = zoom_height;
+
+                var off = $(document.getElementById("tabuleiro").firstChild).offset()
+
+                
+                this.paper.setViewBox(off.left, off.top, (w/zoom), (h/zoom));           */  
+	
+    Raphael(10, 50, 1000, 400, function () {
+        r = this;
+
+
+        r.rect(0, 0, 1000, 400, 10).attr({
+            stroke: "none",
+            fill: "0-#9bb7cb-#adc8da"
+        });
+       
+ 
+    });
+
+	function render(pais, color){
+		var over = function () {
+            this.c = this.c || this.attr("fill");
+            this.stop().animate({fill: "#bacabd"}, 500);
+        };
+        var out = function () {
+            this.stop().animate({fill: this.c}, 500);
+        };
+        r.setStart();
+
+        var hue = Math.random();
+
+      for (var country in map[pais]) {
+            // var c = Raphael.hsb(Math.random(), .5, .75);
+            // var c = Raphael.hsb(.11, .5, Math.random() * .25 - .25 + .75);
+            r.path(worldmap.shapes[map[pais][country]]).attr({stroke: color, fill: color, "stroke-opacity": 0.25});
+        }
+
+       // r.path(worldmap.shapes["CI"]).attr({stroke: "#ccc6ae", fill: "#f0efeb", "stroke-opacity": 0.25});
+
+
+        var world = r.setFinish();
+        world.hover(over, out);
+        // world.animate({fill: "#666", stroke: "#666"}, 2000);
+        world.getXY = function (lat, lon) {
+            return {
+                cx: lon * 2.6938 + 465.4,
+                cy: lat * -2.6938 + 227.066
+            };
+        };
+        world.getLatLon = function (x, y) {
+            return {
+                lat: (y - 227.066) / -2.6938,
+                lon: (x - 465.4) / 2.6938
+            };
+        };
+
+	}
+
+
+      
+
+</script>
+
+<button onclick='resize();'> SIZE</button>
+
+
+<button onclick="render('BRASIL', 'red')"> BRASIL</button>
+<button onclick="render('VENEZUELA', 'green')"> VENEZUELA</button>
+<button onclick="render('CHILE', 'blue')"> CHILE</button>
+<button onclick="render('URUGUAIL', 'yellow')"> URUGUAIL</button>
+
+
+</body>
+</html>

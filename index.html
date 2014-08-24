@@ -1,0 +1,147 @@
+<html>
+
+<head>
+	<title>WAR</title>
+
+    <script src="./js/react.js"></script>
+    <script src="./js/JSXTransformer.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+
+	<script src="./js/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/world.js"></script>
+</head>
+<style type="text/css">
+
+	html,body {min-height:100%; padding:0; margin:0;}
+
+	.tabuleiro{
+		border:1px solid red;	
+		height: calc(99% - 150px);
+	}
+	.chat{
+		border: 1px solid blue;
+		height: 150px !important;
+	}
+
+	.main {
+		position:absolute; top:0; bottom:0; left:0; right:0;
+		
+	}
+</style>
+
+<body>
+	<!-- http://facebook.github.io/react/docs/tutorial.html -->
+    <div id="content" className="content"></div>
+
+    <script type="text/javascript">
+
+
+    </script>
+
+
+    <script type="text/jsx">		/** @jsx React.DOM */
+
+		var Main = React.createClass({
+		  render: function() {
+		    return (
+				<div className="main">
+
+		        	<Tabuleiro data={this.props.data}/>
+					<Chat/>
+		       	</div>
+		    );
+		  }
+		});
+
+		var Tabuleiro = React.createClass({
+
+			onResize : function(){
+				var size = this.getSize();				
+				var w = (size.h)*2;
+				var h = size.h;
+
+				var svg = $(document.getElementById("tabuleiro").firstChild);
+				svg.height(h);
+				svg.width(w);
+			}, 
+			
+			getSize : function(){
+				var cmp = $(this.getDOMNode());
+				return {
+					w: cmp.width(),
+					h: cmp.height()
+				}
+			},
+
+			render: function() {
+
+			    var worlds = this.props.data.map(function (world) {
+			      	return (
+			      		<World name={world.name} path={world.path}/>				   
+			      	);
+			    });
+			    var width = 913;
+			    var height = 638;
+				/*913 638*/
+				return (
+					<div id="tabuleiro" className="tabuleiro"> 
+						<svg height="638" version="1.1" width="913" xmlns="http://www.w3.org/2000/svg" 
+							viewBox="1 1 913 638" preserveAspectRatio="xMinYMin" >
+							<rect width={width}  height={height} fill="#AADDFF"/>
+							{worlds}
+						</svg>
+					</div>
+				);
+			},
+
+			componentDidMount: function() {
+			   	this.onResize();
+			    $(window).resize(this.onResize);
+			}
+
+		});
+
+
+		var World = React.createClass({
+
+			render: function() {
+				return (
+ 					<path className={this.props.name} fill="#DDFFDD" stroke="#000080" strokeWidth="2" d={this.props.path}
+			        	strokeOpacity="0.25"strokeWidth="1.4925373134328357">
+		        	</path>
+				);
+			}
+		});
+
+
+		var Chat = React.createClass({
+
+			render: function() {
+				return (
+				  <footer className="chat">
+				    <h4>chat</h4>
+				    
+				  </footer>
+				);
+			}
+		});
+
+		React.renderComponent(
+			<Main data={paises}/>,
+			document.getElementById('content')
+		);
+
+		
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+	
+    </script>
+
+</body>
+</html>
