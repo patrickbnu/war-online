@@ -16,6 +16,7 @@ var map = {
 				id : "ALASKA",
 				display:"Alaska",
 				coords: ["40", "75"],  
+                neighbors : [""],
 				path : "M 22 115 l 18 -30 l 12 0 l 7 -9 l 56 -2 l -12 20 l -11 1 l -6 10 l 6 9 l -26 1 l -4 -9 l -23 -2 l -5 11 z"
 			},{
 				id : "MACKENZIE",
