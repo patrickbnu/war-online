@@ -76,11 +76,19 @@
 
 			render: function() {
 
-			    var worlds = this.props.data.map(function (world) {
+			    var continents = this.props.data.continents.map(function (continent) {
 			      	return (
-			      		<World name={world.name} path={world.path}/>				   
+			      		<Continent c={continent} />				   
 			      	);
 			    });
+
+			    var lines = this.props.data.lines.map(function(path){
+			    	return (
+			    		<path strokeDasharray="5,5" d={path} />
+		    		)
+
+			    });
+
 			    var width = 913;
 			    var height = 638;
 				/*913 638*/
@@ -89,7 +97,8 @@
 						<svg height="638" version="1.1" width="913" xmlns="http://www.w3.org/2000/svg" 
 							viewBox="1 1 913 638" preserveAspectRatio="xMinYMin" >
 							<rect width={width}  height={height} fill="#AADDFF"/>
-							{worlds}
+							{continents}
+							<g fill="none" stroke="black" stroke-width="6">{lines}</g>
 						</svg>
 					</div>
 				);
@@ -102,12 +111,29 @@
 
 		});
 
+		var Continent = React.createClass({
+			render: function() {
 
-		var World = React.createClass({
+			    var countries = this.props.c.countries.map(function (c) {
+			      	return (
+			      		<Country country={c}/>				   
+			      	);
+			    });
+
+			    return (
+					<g className={this.props.c.id} fill={this.props.c.color} > 
+						{countries}
+					</g>
+				)
+			}
+		});
+
+
+		var Country = React.createClass({
 
 			render: function() {
 				return (
- 					<path className={this.props.name} fill="#DDFFDD" stroke="#000080" strokeWidth="2" d={this.props.path}
+ 					<path className={this.props.country.id}  stroke="#000080" strokeWidth="2" d={this.props.country.path}
 			        	strokeOpacity="0.25"strokeWidth="1.4925373134328357">
 		        	</path>
 				);
@@ -128,7 +154,7 @@
 		});
 
 		React.renderComponent(
-			<Main data={paises}/>,
+			<Main data={map}/>,
 			document.getElementById('content')
 		);
 
