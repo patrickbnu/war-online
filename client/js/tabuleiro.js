@@ -124,9 +124,10 @@ var Country = React.createClass({
 	},
 
 	click : function(e){
+		var val = $("#cor").val();
 		console.log("clicou"+socket);
-		socket.emit('send:color', {color:'red', country : this.props.country.id});
-		this.setState({ color: 'red'});
+		socket.emit('send:color', {color:val, country : this.props.country.id});
+		this.setState({ color: val});
 	},
 
 	render: function() {

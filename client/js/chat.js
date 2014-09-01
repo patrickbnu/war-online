@@ -1,7 +1,7 @@
 /**
  * @jsx React.DOM
  */
-var socket = io.connect();
+
 
 var Users = [];
 var Messages = [];
@@ -100,6 +100,13 @@ var ChangeNameForm = React.createClass({
 				<form onSubmit={this.handleSubmit}>
 					<input onChange={this.onKey} value={this.state.newName} />
 				</form>	
+
+				<select id="cor">
+				  <option value="red">red</option>
+				  <option value="blue">blue</option>
+				  <option value="green">green</option>
+				  <option value="yellow">yellow</option>
+				</select>
 			</div>
 		);
 	}
