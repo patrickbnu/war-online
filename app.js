@@ -18,6 +18,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
 
+var socket = require('./routes/socket.js');
+
 // development only
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
@@ -44,3 +46,7 @@ bs.on('connection', function (client) {
         }
     });
 });
+
+/////////
+var io = require('socket.io')(server);
+io.sockets.on('connection', socket);
