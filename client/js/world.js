@@ -11,7 +11,7 @@ var map = {
     continents: [
     	{
     		id : "AMERICANORTE",
-    		color : ["#FF8000", "#BB4000"],
+    		color : ["#FF8000", "#BB4000", "#CC5000", "#881000"],
     		countries : [{
 				id : "ALASKA",
 				display:"Alaska",
@@ -96,7 +96,7 @@ var map = {
 			}]
     	},{
 	  		id : "AMERICASUL",
-    		color : ["#22CCDD", "#008899"],
+    		color : ["#2CD", "#089","#09A", "#056"],
     		countries : [{
     			id : "ARGENTINA",
                 vizinhos : ["CHILE", "BRASIL"],
@@ -140,7 +140,7 @@ var map = {
     		}]
     	},{
     		id : "EUROPA",
-    		color : ["#AA44FF","#6600CC"],
+    		color : ["#A4F","#60C","#71C","#309"],
     		countries : [{
     			id : "ISLANDIA",
 				display :"Islândia",
@@ -209,7 +209,7 @@ var map = {
     		}]
     	},{
     		id : "OCEANIA",
-    		color : ["#3399FF", "#0055BB"],
+    		color : ["#39F", "#05B","#06C", "#028"],
     		countries : [{
     			id : "SUMATRA",
 				display :"Sumatra",
@@ -249,7 +249,7 @@ var map = {
     		}]
     	},{
     		id : "ASIA",
-    		color : ["#FFCC55", "#BB8811"],
+    		color : ["#FC5", "#B81", "#C92", "#850"],
      		countries : [{
                 id : "CHINA",
                 display :"China",
@@ -361,7 +361,7 @@ var map = {
     		}]
     	},{
     		id : "AFRICA",
-    		color : ["#FF99FF", "#BB55BB"],
+    		color : ["#F9F", "#B5B", "#C6C", "#828"],
     		countries : [{
     			id : "ARGELIA",
 				display :"Argélia",

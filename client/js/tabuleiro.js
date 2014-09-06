@@ -62,7 +62,8 @@ var Tabuleiro = React.createClass({
 
 var Continent = React.createClass({
 	render: function() {
-		var gradientID = "gradient"+this.props.c.id;
+		var gradientID = "gradient" + this.props.c.id;
+		var gradientID_hover = gradientID +"-hover"
 
 	    var countries = this.props.c.countries.map(function (country) {
 	      	return (
@@ -77,6 +78,11 @@ var Continent = React.createClass({
 			          <stop offset="0%"   stopColor={this.props.c.color[0]} stopOpacity="0.8"/>
 			          <stop offset="100%" stopColor={this.props.c.color[1]} stopOpacity="1" />
 			        </radialGradient>
+
+			        <radialGradient id={gradientID_hover}	fx="50%" fy="50%" r="65%" spreadMethod="pad">
+			          <stop offset="0%"   stopColor={this.props.c.color[2]} stopOpacity="0.8"/>
+			          <stop offset="100%" stopColor={this.props.c.color[3]} stopOpacity="1" />
+			        </radialGradient>
 				</defs>
 
 				{countries}
@@ -88,21 +94,7 @@ var Continent = React.createClass({
 
 var Country = React.createClass({
 
-
-
-	mouseover: function(){
-		var el =this.getDOMNode().firstChild;
-		el.backup = el.style.fill;
-        el.style.fill = "url(#gradientAFRICA)";
-    },
-
-    mouseout: function(){
-        var el = this.getDOMNode().firstChild;
-         el.style.fill = el.backup;
-    },
-
-
-
+	fillID : null,
 
     getInitialState: function() {
     	console.log("getInitialState + "+ socket);
@@ -130,11 +122,23 @@ var Country = React.createClass({
 		this.setState({ color: val});
 	},
 
+	componentDidMount: function() {
+		var element = this.getDOMNode();
+		var fillID = this.fillID;
+		
+        $(element).hover(function(){        	
+       		element.firstChild.style.fill = "url(#"+fillID+"-hover)";
+        }, function(){
+ 			element.firstChild.style.fill = "url(#"+fillID+")";
+        });
+    },
+
 	render: function() {
-		var fillURL = "url(#"+this.props.gradientID+")";
+		this.fillID = this.props.gradientID
+		var fillURL = "url(#"+this.fillID+")";
 		return (
 			<g className={this.props.country.id}>
-				<path onMouseOver={this.mouseover} onMouseOut={this.mouseout} stroke="#000000" fill={fillURL} d={this.props.country.path} strokeOpacity="0.25" strokeWidth="1.5"></path>
+				<path stroke="#000000"  fill={fillURL} d={this.props.country.path} strokeOpacity="0.25" strokeWidth="1.5"></path>
         		<circle onClick={this.click} cx={this.props.country.coords.name[0]}  cy={this.props.country.coords.name[1]}  r="7" stroke="#006600" fill={this.state.color} />
         		<text x={this.props.country.coords.name[0]} y={this.props.country.coords.name[1]} fill="black"
 	        		fontFamily="Arial"  fill="#333"   fontSize="13px">{this.props.country.display}
